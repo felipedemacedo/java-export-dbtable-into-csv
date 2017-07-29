@@ -150,4 +150,19 @@ public class DBConnection {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
+
+	public ResultSet query(String query) throws SQLException {
+		System.out.println("EXECUTE QUERY: [" + query + "]");
+	    Statement stmt = null;
+	    try {
+	        stmt = this.conn.createStatement();
+	        ResultSet rs = stmt.executeQuery(query);
+	        return rs;
+	    } catch (SQLException e ) {
+	        e.printStackTrace();
+	    } finally {
+	        if (stmt != null) { stmt.close(); }
+	    }
+		return null;
+	}
 }
