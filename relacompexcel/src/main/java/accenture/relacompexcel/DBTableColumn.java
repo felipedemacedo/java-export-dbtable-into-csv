@@ -1,11 +1,12 @@
 package accenture.relacompexcel;
 
-public class DBColumn {
+public class DBTableColumn {
 	private String columnName = "";
 	private String dataType = "";
 	private String dataLength = "";
+	private Boolean lastColumn = false;
 	
-	public DBColumn(String columnName, String dataType, String dataLength) {
+	public DBTableColumn(String columnName, String dataType, String dataLength) {
 		setColumnName(columnName);
 		setDataType(dataType);
 		setDataLength(dataLength);
@@ -34,7 +35,12 @@ public class DBColumn {
 	public void setDataLength(String dataLength) {
 		this.dataLength = dataLength;
 	}
-	
-	
-			
+
+	public Boolean isLastColumn() {
+		return lastColumn;
+	}
+
+	public void setLastColumn(Boolean lastColumn) {
+		this.lastColumn = lastColumn;
+	}		
 }
