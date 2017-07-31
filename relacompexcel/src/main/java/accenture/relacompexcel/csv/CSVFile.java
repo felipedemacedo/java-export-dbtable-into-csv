@@ -16,7 +16,7 @@ public class CSVFile {
 	public CSVFile(String fileName) throws FileNotFoundException {
 		setFileName(fileName);
 		setPw(new PrintWriter(new File(getFileNameWithExtension())));
-		setSb(new StringBuilder());
+		setSb(new StringBuilder(150000));
 	}
 
 	public PrintWriter getPw() {

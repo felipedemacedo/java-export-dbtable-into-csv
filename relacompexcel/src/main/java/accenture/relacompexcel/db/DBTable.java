@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import accenture.relacompexcel.csv.CSVFile;
+import accenture.relacompexcel.timer.MyTimer;
 
 public class DBTable {
 	private DBConnection db = null;
@@ -181,7 +182,9 @@ public class DBTable {
 	public void dumpIntoCSVFile(String fileName, Integer rowNumMin, Integer rowNumMax) throws FileNotFoundException, SQLException
 	{
 		CSVFile file = new CSVFile(fileName);
-		
+		MyTimer t = new MyTimer();
+				
+		t.start();
         ///query///
 		String query = 	"SELECT "+this.columnNamesList.replace(CSVFile.DEFAULT_COLUMN_SEPARATOR, ",") + 
 						" FROM " + 
@@ -192,29 +195,26 @@ public class DBTable {
 						") " + 
 						"WHERE rn >= " + rowNumMin.toString();
 		
-		System.out.println("-----\nEXECUTE QUERY: [" + query + "]");
+		System.out.println("-----\nEXECUTED QUERY: [" + query + "]");
+		t.stop(" seconds in QUERY TIME");
+		t.start();
 	    Statement stmt = null;
 	    try {
 	        stmt = db.getConn().createStatement();
 	        ResultSet rs = stmt.executeQuery(query);
 	        
 	        //write header:
-	        file.getSb().append(this.columnNamesList);
+	        //file.getSb().append(this.columnNamesList);
 	        
 	        while (rs.next()) {
 	        	for (DBTableColumn dbColumn : listCols) {
 					//System.out.println(rs.getString(dbColumn.getColumnName()));
 	        		String colName = dbColumn.getColumnName();
-	        		String colValue = rs.getString(colName);
-	        		
-	        		file.getSb().append(colValue);
-	        		
+	        		String colValue = rs.getString(colName) + CSVFile.DEFAULT_COLUMN_SEPARATOR;
 	        		if(dbColumn.isLastColumn()) {
-	        			file.getSb().append(CSVFile.DEFAULT_LINE_SEPARATOR);
-	        		}else
-	        		{
-	        			file.getSb().append(CSVFile.DEFAULT_COLUMN_SEPARATOR);
+	        			colValue = colValue.replace(CSVFile.DEFAULT_COLUMN_SEPARATOR, CSVFile.DEFAULT_LINE_SEPARATOR);
 	        		}
+	        		file.getSb().append(colValue);
 				}
 	        }
 	    } catch (SQLException e ) {
@@ -222,8 +222,10 @@ public class DBTable {
 	    } finally {
 	        if (stmt != null) { stmt.close(); }
 	    }
-
+	    t.stop(" seconds in string builder montage");
+	    t.start();
         file.write();
+        t.stop(" seconds writing the file");
         file.close();
         
         System.out.println("done!");

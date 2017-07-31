@@ -53,6 +53,6 @@ public class App
     	//db.closeConnection();
     	//Runtime.getRuntime().runFinalization();
     	
-    	processTimer.stop(" second(s) TO CLOSE CONNECTION");
+    	//processTimer.stop(" second(s) TO CLOSE CONNECTION");
     }
 }
