@@ -1,4 +1,4 @@
-package accenture.relacompexcel;
+package accenture.relacompexcel.db;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -75,7 +75,7 @@ public class DBConnection {
 	 * @param query
 	 * @throws SQLException
 	 */
-	public void viewQuery(String query) throws SQLException {
+	/*public void viewQuery(String query) throws SQLException {
 		System.out.println("EXECUTE QUERY: [" + query + "]");
 	    Statement stmt = null;
 	    try {
@@ -97,11 +97,9 @@ public class DBConnection {
 	    } finally {
 	        if (stmt != null) { stmt.close(); }
 	    }
-	}
+	}*/
 
-	
 	//GETS AND SETS
-	
 	
 	public String getEndpoint() {
 		return endpoint;

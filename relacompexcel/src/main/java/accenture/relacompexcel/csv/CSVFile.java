@@ -1,4 +1,4 @@
-package csv;
+package accenture.relacompexcel.csv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,13 +7,13 @@ import java.io.PrintWriter;
 public class CSVFile {
 	public static final String DEFAULT_COLUMN_SEPARATOR = ";";
 	public static final String DEFAULT_LINE_SEPARATOR = "\n";
+	
 	private String fileName = "";
 	private String extension = "csv";
 	private PrintWriter pw = null;
 	private StringBuilder sb = null;
 	
 	public CSVFile(String fileName) throws FileNotFoundException {
-		// TODO Auto-generated constructor stub
 		setFileName(fileName);
 		setPw(new PrintWriter(new File(getFileNameWithExtension())));
 		setSb(new StringBuilder());
@@ -56,12 +56,10 @@ public class CSVFile {
 	}
 
 	public void write() {
-		// TODO Auto-generated method stub
 		getPw().write(getSb().toString());
 	}
 
 	public void close() {
-		// TODO Auto-generated method stub
 		getPw().close();
 	}
 }

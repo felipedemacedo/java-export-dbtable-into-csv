@@ -1,4 +1,4 @@
-package accenture.relacompexcel;
+package accenture.relacompexcel.db;
 
 public class DBTableColumn {
 	private String columnName = "";

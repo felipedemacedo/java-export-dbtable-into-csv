@@ -1,4 +1,4 @@
-package accenture.relacompexcel;
+package accenture.relacompexcel.db;
 
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import csv.CSVFile;
+import accenture.relacompexcel.csv.CSVFile;
 
 public class DBTable {
 	private DBConnection db = null;
@@ -119,6 +119,7 @@ public class DBTable {
 	        while (rs.next()) {
 	            String numRegs = rs.getString("NUM_REGS");
 	            System.out.println("NUMBER OF ENTRIES IN "+getTableNameWithSchema()+": ["+numRegs+"]");
+	            this.numRegistros = Integer.parseInt(numRegs);
 	        }
 	    } catch (SQLException e ) {
 	        e.printStackTrace();
